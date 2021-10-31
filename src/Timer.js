@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+// import React, { PureComponent } from 'react';
 
 class Timer extends Component {
+  // class Timer extends PureComponent {
   constructor() {
     super();
     this.timer = React.createRef();
@@ -11,6 +13,16 @@ class Timer extends Component {
   }
 
   //Your code here
+  // This will change the font color randomly. componentDidUpdate fires every time the component updates.
+  componentDidUpdate() {
+    this.timer.current.style.color = '#' + Math.floor(Math.random() * 16777215).toString(16)
+  }
+
+  // The result is that the DOM changes you've made in componentDidUpdate will only take effect when a Timer increments.
+  // When using PureComponent, no need to use shouldComponentUpdate()
+  shouldComponentUpdate(nextProps, nextState) {
+    return (this.state.time === nextState.time) ? false : true
+  }
 
   componentDidMount() {
     this.interval = setInterval(
